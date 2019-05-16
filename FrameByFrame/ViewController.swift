@@ -87,8 +87,10 @@ class ViewController: UIViewController {
         }
     }
     
-    func randomAsteroids(){
-        let asteroid = Asteroid(speed: 5, center: CGPoint(x: 500, y: 500), size: CGSize(width: 50, height: 50))
+    private func randomAsteroids(){
+        let randomspeed = Double.random(in: 1 ..< 5)
+        let randomSize = randomWidth(minRange: 10, maxRange: 150)
+        let asteroid = Asteroid(speed: CGFloat(randomspeed), center: CGPoint(x: 40, y: 140), size: randomSize)
         self.asteroids.append(asteroid)
         let randomN = Int.random(in: 0 ..< ASTEROIDS_IMAGES_NAMES.count)
         let asteroidView = UIImageView(image: UIImage(named: ASTEROIDS_IMAGES_NAMES[randomN]))
@@ -98,7 +100,17 @@ class ViewController: UIViewController {
         self.asteroidsViews.append(asteroidView)
     }
     
+    private func randomWidth(minRange: Int , maxRange: Int) -> CGSize{
+        let size = randomN(minRange: minRange, maxRange: maxRange)
+        return CGSize(width: size, height: size)
+    }
+    private func randomN (minRange: Int , maxRange: Int) -> Int{
+        return Int.random(in: minRange ... maxRange)
+    }
     
+    private func randomX(minRange: Int , range: Int) -> Int{
+        return randomN(minRange: minRange, maxRange: range)
+    }
     
     
 
