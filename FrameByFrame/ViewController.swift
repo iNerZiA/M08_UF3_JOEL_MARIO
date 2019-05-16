@@ -3,14 +3,13 @@ import UIKit
 class ViewController: UIViewController {
     //Viper
     var viperImageView = UIImageView()
-    var viper = Viper(speed: 3.5, center: CGPoint(x: 200, y: 600), size: CGSize(width: 100, height: 100))
+    var viper = Viper(speed: 10, center: CGPoint(x: 200, y: 600), size: CGSize(width: 100, height: 100))
     
     //Asteroids
     let ASTEROIDS_IMAGES_NAMES = ["Asteroid_A", "Asteroid_B", "Asteroid_C"]
     var asteroids = [Asteroid]()
     var asteroidsViews = [UIImageView]()
     var asteroidsToBeRemoved = [Asteroid]()
-    
     
     //Game Logic
     var gameRunning = false //to control game state
@@ -23,15 +22,24 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         //set up Viper
+        viperImageView.image = UIImage(named: "viper")
         viperImageView.frame.size = viper.size
         viperImageView.center = viper.center
-        viperImageView.image = UIImage(named: "viper")
         self.view.addSubview(viperImageView)
+        
+        
         
         //allow user tap
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(sender:)))
         self.view.addGestureRecognizer(tapGesture)
         self.view.isUserInteractionEnabled = true
+ 
+        //allow user pan
+        //let panGesture  = UIPanGestureRecognizer(target: self, action: #selector(self.panGestureHandler(sender:)))
+        //self.viperImageView.addGestureRecognizer(panGesture)
+       // self.viperImageView.isUserInteractionEnabled = true
+
+        
         
         //set game running
         self.gameRunning = true
@@ -56,6 +64,7 @@ class ViewController: UIViewController {
             //create an asterior every 5s
             if (stepNumber%(60*5)==0){
                 /*INSERT CODE HERE*/
+               randomAsteroids()
             }
             stepNumber+=1
             
@@ -77,6 +86,20 @@ class ViewController: UIViewController {
 
         }
     }
+    
+    func randomAsteroids(){
+        let asteroid = Asteroid(speed: 5, center: CGPoint(x: 500, y: 500), size: CGSize(width: 50, height: 50))
+        self.asteroids.append(asteroid)
+        let randomN = Int.random(in: 0 ..< ASTEROIDS_IMAGES_NAMES.count)
+        let asteroidView = UIImageView(image: UIImage(named: ASTEROIDS_IMAGES_NAMES[randomN]))
+        asteroidView.center = asteroid.center
+        asteroidView.frame.size = asteroid.size
+        self.view.addSubview(asteroidView)
+        self.asteroidsViews.append(asteroidView)
+    }
+    
+    
+    
     
 
 
