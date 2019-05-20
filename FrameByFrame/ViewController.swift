@@ -1,6 +1,7 @@
 import UIKit
 
 class ViewController: UIViewController {
+
     //Viper
     var viperImageView = UIImageView()
     var viper = Viper(speed: 10, center: CGPoint(x: 200, y: 600), size: CGSize(width: 100, height: 100))
@@ -74,13 +75,25 @@ class ViewController: UIViewController {
             
             //update location asteroids
             /*INSERT CODE HERE*/
+            for index in 0..<asteroids.count{
+                asteroids[index].step()
+                asteroidsViews[index].center = asteroids[index].center
+            }
             
             //check viper screen collision
             /*INSERT CODE HERE*/
             
             //check asteroids collision between viper and screen
-            /*INSERT CODE HERE*/
-            
+       
+            /*
+            for actor in asteroids{
+                if viper.overlapsWith(actor: actor) && screenCollision == true{
+                    screenCollision = false
+                }else if viper.overlapsWith(actor: actor){
+                    screenCollision = true
+                }
+            }
+            */
             //remove from scene asteroids
             /*INSERT CODE HERE*/
 
@@ -92,8 +105,8 @@ class ViewController: UIViewController {
         let randomSize = randomWidth(minRange: 10, maxRange: 100)
         let asteroid = Asteroid(speed: CGFloat(randomspeed), center: CGPoint(x: randomX(minRange: 0, range: 300), y: 140), size: randomSize)
         self.asteroids.append(asteroid)
-        let randomN = Int.random(in: 0 ..< ASTEROIDS_IMAGES_NAMES.count)
-        let asteroidView = UIImageView(image: UIImage(named: ASTEROIDS_IMAGES_NAMES[randomN]))
+        let randomNumber = Int.random(in: 0 ..< ASTEROIDS_IMAGES_NAMES.count)
+        let asteroidView = UIImageView(image: UIImage(named: ASTEROIDS_IMAGES_NAMES[randomNumber]))
         asteroidView.center = asteroid.center
         asteroidView.frame.size = asteroid.size
         self.view.addSubview(asteroidView)
